@@ -50,7 +50,7 @@ export default function ShareDialogBox() {
 
                                 {/* Github Icon  */}
                                 <div className="">
-                                    <a href="">
+                                    <a href="https://github.com/">
                                         <AiFillGithub size={35}
                                             style={{
                                                 color: mode === 'dark'

@@ -14,6 +14,7 @@ import Dashboard from "./pages/admin/dashboard/Dashboard";
 import MyState from "./context/data/myState";
 import { Toaster } from "react-hot-toast";
 import CreateBlog from "./pages/admin/createBlog/CreateBlog";
+import EditBlog from "./pages/admin/editBlog/Editblog";
 
 function App() {
   return (
@@ -24,33 +25,47 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/allblogs" element={<AllBlogs />} />
           <Route path="/bloginfo/:id" element={<BlogInfo />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/dashboard" element={
-            <ProtectedRouteForAdmin>
-              <Dashboard />
-            </ProtectedRouteForAdmin>
-          } />
-          <Route path="/createblog" element={
-            <ProtectedRouteForAdmin>
-              <CreateBlog />
-            </ProtectedRouteForAdmin>
-          } />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRouteForAdmin>
+                <Dashboard />
+              </ProtectedRouteForAdmin>
+            }
+          />
+          <Route
+            path="/createblog"
+            element={
+              <ProtectedRouteForAdmin>
+                <CreateBlog />
+              </ProtectedRouteForAdmin>
+            }
+          />
+          <Route
+            path="/editblog/:id"
+            element={
+              <ProtectedRouteForAdmin>
+                <EditBlog />
+              </ProtectedRouteForAdmin>
+            }
+          />
+
           <Route path="/*" element={<NoPage />} />
         </Routes>
-        <Toaster/>
+        <Toaster />
       </Router>
     </MyState>
-  )
+  );
 }
 
-export default App
+export default App;
 
 export const ProtectedRouteForAdmin = ({ children }) => {
-  const admin = JSON.parse(localStorage.getItem('admin'))
+  const admin = JSON.parse(localStorage.getItem("admin"));
   if (admin?.user?.email === "pankajhadole4@gmail.com") {
-    return children
+    return children;
+  } else {
+    return <Navigate to={"/admin"} />;
   }
-  else {
-    return <Navigate to={'/adminlogin'}/>
-  }
-}
+};
